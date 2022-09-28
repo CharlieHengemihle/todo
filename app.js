@@ -1,7 +1,8 @@
 /* Imports */
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
-// Part A: import create todo
+import { createTodo } from './fetch-utils.js';
+
 // Part B: import get todos
 // Part C: import complete todos
 // Part D: import delete all function
@@ -35,8 +36,7 @@ addTodoForm.addEventListener('submit', async (e) => {
         description: formData.get('description'),
     };
 
-    // > Part A: Call the function to create a todo, passing in "newTodo":
-    const response = await null; // ???
+    const response = await createTodo(newTodo); 
     error = response.error;
     const todo = response.data;
 
