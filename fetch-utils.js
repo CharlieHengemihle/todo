@@ -43,8 +43,9 @@ export async function completeTodo(id) {
 
 export async function deleteAllTodos() {
     const user = getUser();
+    return await client.from('todos').delete().eq('user.id',user.id);
+}
 
-    // > Part D: delete all todos for this user in supabase:
 
     // Supabase doesn't allow deleting without a where clause,
     // which is a good thing it most cases because we generally
@@ -60,4 +61,4 @@ export async function deleteAllTodos() {
 
     // Use this to add the user id as a "where" criteria filter:
     // .eq('user_id', user.id);
-}
+
