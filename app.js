@@ -60,8 +60,6 @@ removeButton.addEventListener('click', async () => {
         displayError();
     } else {
         todos = [];
-        // > Part D: reset todos state to an empty array:
-
         displayTodos();
     }
 });

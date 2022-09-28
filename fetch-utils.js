@@ -43,7 +43,7 @@ export async function completeTodo(id) {
 
 export async function deleteAllTodos() {
     const user = getUser();
-    return await client.from('todos').delete().eq('user.id',user.id);
+    return await client.from('todos').delete().eq('user_id', user.id);
 }
 
 
