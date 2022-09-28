@@ -93,6 +93,6 @@ function displayTodos() {
                 todos[index] = updatedTodo;
                 displayTodos();
             }
-        })
+        });
     }
 }
