@@ -1,10 +1,8 @@
 /* Imports */
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
-import { createTodo } from './fetch-utils.js';
+import { createTodo, getTodos, completeTodo } from './fetch-utils.js';
 
-// Part B: import get todos
-// Part C: import complete todos
 // Part D: import delete all function
 import { renderTodo } from './render-utils.js';
 
@@ -21,12 +19,17 @@ let error = null;
 /* Events */
 
 window.addEventListener('load', async () => {
-    // > Part B: Add a click event listener for the todoEl
-    //      - call the async supabase function to delete all todos
-    //        and get the response
-    //      - set the todos and error state from the response
-    //      - if there's an error call displayError
-    //      - otherwise, display the todos
+    const response = await getTodos();
+    error = response.error;
+    todos = response.data;
+
+    if (error) {
+        displayError();
+    }
+
+    if (todos) {
+        displayTodos();
+    }
 });
 
 addTodoForm.addEventListener('submit', async (e) => {
@@ -80,13 +83,18 @@ function displayTodos() {
         const todoEl = renderTodo(todo);
         todoList.append(todoEl);
 
-        // > Part C: Add a click event listener for the todoEl
-        //      - call the async supabase function to delete all todos
-        //        and get the response
-        //      - if there's an error, set error state and call displayError
-        //      - otherwise:
-        //          - find the index of todo in todos
-        //          - update that index of todos with the response data
-        //          - redisplay the todos
+        todoEl.addEventListener('click', async () => {
+            const response = await completeTodo(todo.id);
+            error = response.error;
+            const updatedTodo = response.data;
+
+            if (error) {
+                displayError();
+            } else {
+                const index = todos.indexOf(todo);
+                todos[index] = updatedTodo;
+                displayTodos();
+            }
+        })
     }
 }
